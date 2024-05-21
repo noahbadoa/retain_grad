@@ -70,8 +70,14 @@ fn gradient_descent_test() {
     for _idx in 1..50 {
         let xs = Tensor::zeros([7], kind::FLOAT_CPU);
         let ys = Tensor::zeros([7], kind::FLOAT_CPU);
-        let loss = (my_module.forward(&xs) - ys).pow_tensor_scalar(2).sum(Kind::Float);
+
+        let temp = my_module.forward(&xs);
+        temp.retain_grad();
+
+        let loss = (&temp - &ys).pow_tensor_scalar(2).sum(Kind::Float);
         opt.backward_step(&loss);
+        let grad = temp.grad();
+        assert_ne!(grad.numel(), 0)
     }
 }
 

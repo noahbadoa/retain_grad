@@ -30,7 +30,6 @@ let excluded_functions =
     ; "_amp_non_finite_check_and_unscale_"
     ; "_cummin_helper"
     ; "_cummax_helper"
-    ; "retain_grad"
     ; "_validate_sparse_coo_tensor_args"
     ; "_backward"
     ; "size"
